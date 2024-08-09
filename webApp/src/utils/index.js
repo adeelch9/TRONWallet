@@ -240,7 +240,7 @@ const Utils = {
     },
 
     // Set wallet/secret to LocalStorage
-    SetWallet(wallet = null, secret = null) {
+    SetWallet(wallet = null, secret = null, hexAddress = null) {
 
         if (wallet === null) {
 
@@ -250,11 +250,16 @@ const Utils = {
 
             secret = Utils.GetWallet('secret');
 
+        } else if (hexAddress === null) {
+
+            hexAddress = Utils.GetWallet('hexAddress');
+
         }
 
         window.localStorage.setItem(`wallet_user_${ WebApp.initDataUnsafe.user.id }`, JSON.stringify({
             wallet: wallet,
             secret: secret,
+            hexAddress: hexAddress
         }))
 
     },

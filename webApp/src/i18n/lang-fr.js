@@ -1,12 +1,12 @@
 const i18n_fr = {
     general: {
-        title: 'Portefeuille DPX',
+        title: 'Portefeuille TRX',
         language: 'Français',
         yes: 'Oui',
         no: 'Non',
     },
     login: {
-        title: "Bienvenue sur DPX Wallet",
+        title: "Bienvenue sur TRX Wallet",
         description: "Pour commencer, vous devez créer un nouveau portefeuille ou importer un portefeuille existant si vous en avez déjà un.",
         buttons: {
             import: "Importer le portefeuille",
@@ -19,9 +19,9 @@ const i18n_fr = {
     settings: {
         language: {
             title: 'Langue',
-            description: 'Définissez votre langue préférée',
+            description: '',
         },
-        copyright: 'Développé par Erfan Mola en utilisant TeleVue',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_fr = {
     receive: {
         set: 'Définir',
         amount: 'Montant (Optionnel)',
-        receive_amount: 'Montant Reçu (DPX)',
+        receive_amount: 'Montant Reçu (TRX)',
         hint: 'Vous pouvez copier et partager votre adresse de portefeuille en cliquant sur l\'adresse. Vous pouvez également partager votre QR Code de portefeuille.',
         toast: {
             wallet_copied: 'Adresse du portefeuille copiée dans le presse-papiers',
@@ -88,7 +88,7 @@ const i18n_fr = {
             departure: 'Portefeuille de Départ',
             destination: 'Portefeuille de Destination',
             amount: 'Montant',
-            transfer_amount: 'Montant du Transfert (DPX)'
+            transfer_amount: 'Montant du Transfert (TRX)'
         },
         request_transfer: 'Demander le Transfert',
         toast: {
@@ -97,7 +97,7 @@ const i18n_fr = {
         prompt: {
             verify_transfer: {
                 title: 'Vérifier le Transfert',
-                text: 'Vous transférez {amount} DPX avec des frais de {fee} DPX vers {destination}. Voulez-vous continuer ?',
+                text: 'Vous transférez {amount} TRX avec des frais de {fee} TRX vers {destination}. Voulez-vous continuer ?',
             },
         }
     },

@@ -29,26 +29,16 @@ class API extends Controller
 
         $wallet   = $request->all()['wallet'] ?? '';
         $secret   = $request->all()['secret'] ?? '';
+        $hexAddress = $request->all()['hexAddress'] ?? '';
 
-        $verify = DPX::Verify($wallet, $secret);
+        $verify = DPX::Verify($wallet, $secret, $hexAddress);
 
-        return $verify ? API::Respond(true) : API::Error('invalid-credentials', true, 'Provided credentials are invalid');
-
-    }
-
-    public function Revoke(Request $request) {
-
-        $wallet   = $request->all()['wallet'] ?? '';
-        $secret   = $request->all()['secret'] ?? '';
-
-        $revoke = DPX::RevokeSecret($wallet, $secret);
-
-        return $revoke ? API::Respond($revoke) : API::Error('invalid-credentials', true, 'Provided credentials are invalid');
+        return $verify ? API::Respond(true) : API::Error('invalid-credentials', 'Provided credentials are invalid');
 
     }
+
 
     public function Balance(Request $request) {
-
         return DPX::GetBalance($request->route('wallet'));
 
     }
@@ -59,31 +49,18 @@ class API extends Controller
         $departure   = $request->all()['departure'] ?? null;
         $destination = $request->all()['destination'] ?? null;
 
-        if ($departure && !(preg_match('/' . config('regex.md5') . '/', $departure))) {
-            
-            $departure = null;
-
-        }
-
-        if ($destination && !(preg_match('/' . config('regex.md5') . '/', $destination))) {
-            
-            $destination = null;
-
-        }
-
         return DPX::GetTransactions($offset, $departure, $destination);
 
     }
 
     public function Transaction(Request $request) {
-
         return DPX::GetTransaction($request->route('id'));
 
     }
 
     public function Invalid() {
-        
-        return $this->Error('unsupported-action', true, 'Method is not allowed');
+
+        return $this->Error('unsupported-action', 'Method is not allowed');
 
     }
 
@@ -97,10 +74,10 @@ class API extends Controller
 
     public static function Error($error, $info = null) {
 
-        return [ 
+        return [
             'status' => 'error',
             'error' => $error,
-            'info' => $info 
+            'info' => $info
         ];
 
     }

@@ -1,12 +1,12 @@
 const i18n_en = {
     general: {
-        title: 'DPX Wallet',
+        title: 'TRX Wallet',
         language: 'English',
         yes: 'Yes',
         no: 'No',
     },
     login: {
-        title: "Welcome to DPX Wallet",
+        title: "Welcome to TRX Wallet",
         description: "To get started, you need to create a new wallet or import an existing wallet if you already have one.",
         buttons: {
             import: "Import Wallet",
@@ -19,9 +19,9 @@ const i18n_en = {
     settings: {
         language: {
             title: 'Language',
-            description: 'Set your prefered language',
+            description: '',
         },
-        copyright: 'Developed by Erfan Mola using TeleVue',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_en = {
     receive: {
         set: 'Set',
         amount: 'Amount (Optional)',
-        receive_amount: 'Receive Amount (DPX)',
+        receive_amount: 'Receive Amount (TRX)',
         hint: 'You can copy and share your wallet address by clicking on the address. You can also share your wallet QRCode.',
         toast: {
             wallet_copied: 'Wallet address is copied to clipboard',
@@ -88,7 +88,7 @@ const i18n_en = {
             departure: 'Departure Wallet',
             destination: 'Destination Wallet',
             amount: 'Amount',
-            transfer_amount: 'Transfer Amount (DPX)'
+            transfer_amount: 'Transfer Amount (TRX)'
         },
         request_transfer: 'Request Transfer',
         toast: {
@@ -97,7 +97,7 @@ const i18n_en = {
         prompt: {
             verify_transfer: {
                 title: 'Verify Transfer',
-                text: 'You are transfering {amount} DPX with {fee} DPX fee to {destination}. Do you want to proceed?',
+                text: 'You are transfering {amount} TRX with {fee} TRX fee to {destination}. Do you want to proceed?',
             },
         }
     },
