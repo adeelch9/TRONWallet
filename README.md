@@ -1,4 +1,4 @@
-![DPXWallet](https://raw.githubusercontent.com/erfanmola/DPXWallet/master/docs/DPXWallet.gif)
+![TRONWallet](https://raw.githubusercontent.com/erfanmola/DPXWallet/master/docs/DPXWallet.gif)
 
 # DPXWallet
 DPXWallet is a Feature-Rich demonstration of a dummy Wallet app built in Telegram. It's main purpose is for [Telegram Mini App Contest](https://t.me/contest/327)
@@ -31,7 +31,4 @@ DPXWallet has a comprehensive [Documentation](https://erfanmola.github.io/DPXWal
 [TeleVue](https://github.com/erfanmola/TeleVue) is a Telegram UI Library for VueJS developed mainly for the purpose of this contest and it has been used in DPXWallet.
 
 ## License
-[MIT](https://github.com/erfanmola/DPXWallet/blob/master/LICENSE)
-
-## Owner
-This repository and [@DPXWalletBot](https://t.me/DPXWalletBot) is owned by Erfan Mola ([@Eyfan](https://t.me/Eyfan)).
+[MIT](https://github.com/adeelch9/TRONWallet/blob/master/LICENSE)
