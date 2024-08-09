@@ -15,6 +15,7 @@
 
     const wallet = ref(Utils.GetWallet('wallet'));
     const secret = ref(Utils.GetWallet('secret'));
+    const hexAddress = ref(Utils.GetWallet('hexAddress'));
 
     if (!(wallet.value && secret.value) && route.name === 'wallet') {
 
@@ -65,7 +66,7 @@
         status.value = 'progress';
         WebApp.HapticFeedback.impactOccurred('medium');
 
-        let result = await Utils.DPXSendRequest('/verify', { 'wallet': wallet.value, 'secret': secret.value }, 'POST', i18nLocale);
+        let result = await Utils.DPXSendRequest('/verify', { 'wallet': wallet.value, 'secret': secret.value, 'hexAddress': hexAddress.value }, 'POST', i18nLocale);
 
         if (result) {
 
@@ -126,59 +127,59 @@
 
     };
 
-    watch([wallet, secret], () => { hasChanged.value = true });
+    watch([wallet, secret, hexAddress], () => { hasChanged.value = true });
 
-    const RevokeSecret = async () => {
+    // const RevokeSecret = async () => {
 
-        Utils.Prompt(i18nLocale.t('wallet.prompt.revoke_secret.title'), i18nLocale.t('wallet.prompt.revoke_secret.text'), [
-            {
-                text: i18nLocale.t('general.no'),
-                type: "default",
-                event: () => { WebApp.HapticFeedback.impactOccurred('soft'); },
-            },
-            {
-                text: i18nLocale.t('general.yes'),
-                type: "destructive",
-                event: async () => {
+    //     Utils.Prompt(i18nLocale.t('wallet.prompt.revoke_secret.title'), i18nLocale.t('wallet.prompt.revoke_secret.text'), [
+    //         {
+    //             text: i18nLocale.t('general.no'),
+    //             type: "default",
+    //             event: () => { WebApp.HapticFeedback.impactOccurred('soft'); },
+    //         },
+    //         {
+    //             text: i18nLocale.t('general.yes'),
+    //             type: "destructive",
+    //             event: async () => {
 
-                    statusRevoke.value = 'progress';
-                    WebApp.HapticFeedback.impactOccurred('medium');
+    //                 statusRevoke.value = 'progress';
+    //                 WebApp.HapticFeedback.impactOccurred('medium');
 
-                    let result = await Utils.DPXSendRequest('/revoke', { 'wallet': wallet.value, 'secret': secret.value }, 'POST', i18nLocale);
+    //                 let result = await Utils.DPXSendRequest('/revoke', { 'wallet': wallet.value, 'secret': secret.value, 'hexAddress': hexAddress.value }, 'POST', i18nLocale);
 
-                    if (result) {
+    //                 if (result) {
 
-                        WebApp.HapticFeedback.notificationOccurred('success');
+    //                     WebApp.HapticFeedback.notificationOccurred('success');
 
-                        statusRevoke.value = 'success';
-                        Utils.PlayAudio('Success.mp3');
+    //                     statusRevoke.value = 'success';
+    //                     Utils.PlayAudio('Success.mp3');
 
-                        Utils.Toast(i18nLocale.t('wallet.toast.secret_revoked'), 5000);
+    //                     Utils.Toast(i18nLocale.t('wallet.toast.secret_revoked'), 5000);
 
-                        secret.value = result.result;
+    //                     secret.value = result.result;
 
-                        Utils.SetWallet(wallet.value.toString().toLowerCase(), secret.value.toString().toLowerCase());
+    //                     Utils.SetWallet(wallet.value.toString().toLowerCase(), secret.value.toString().toLowerCase());
 
-                        setTimeout(() => { hasChanged.value = false });
+    //                     setTimeout(() => { hasChanged.value = false });
 
-                        setTimeout(() => { statusRevoke.value = 'hide'; }, 2500);
+    //                     setTimeout(() => { statusRevoke.value = 'hide'; }, 2500);
 
-                    } else {
+    //                 } else {
 
-                        WebApp.HapticFeedback.notificationOccurred('error');
+    //                     WebApp.HapticFeedback.notificationOccurred('error');
 
-                        statusRevoke.value = 'failed';
-                        Utils.PlayAudio('Failed.mp3');
+    //                     statusRevoke.value = 'failed';
+    //                     Utils.PlayAudio('Failed.mp3');
 
-                        setTimeout(() => { statusRevoke.value = 'normal'; }, 2500);
+    //                     setTimeout(() => { statusRevoke.value = 'normal'; }, 2500);
 
-                    }
+    //                 }
 
-                },
-            },
-        ]);
+    //             },
+    //         },
+    //     ]);
 
-    };
+    // };
 
     const i18nLocale = useI18n({ useScope: 'global' });
 
@@ -200,7 +201,7 @@
             <div class="form-item">
                 <label>{{ $t('wallet.fields.wallet') }}</label>
                 <div>
-                    <input type="text" enterkeyhint="done" :placeholder="$t('wallet.fields.wallet')" maxlength="32" minlength="32"
+                    <input type="text" enterkeyhint="done" :placeholder="$t('wallet.fields.wallet')"
                         v-model="wallet" @keydown="Utils.hideKeyboardOnEnter" />
                     <i @click="ScanQRCode('wallet')" class="icon-maximize"></i>
                 </div>
@@ -209,7 +210,7 @@
             <div class="form-item">
                 <label>{{ $t('wallet.fields.secret') }}</label>
                 <div>
-                    <input :type="passwordFieldType" :placeholder="$t('wallet.fields.secret')" maxlength="32" minlength="32"
+                    <input :type="passwordFieldType" :placeholder="$t('wallet.fields.secret')"
                         v-model="secret" @keydown="Utils.hideKeyboardOnEnter" />
                     <i @click="ScanQRCode('secret')" class="icon-maximize"></i>
                     <i :class="(passwordFieldType === 'password' ? 'icon-eye' : 'icon-eye-off')"
@@ -218,7 +219,7 @@
             </div>
 
             <button @click="Submit" :class="['button', 'button-progress', `button-progress-${status}`]"
-                :disabled="(status !== 'normal') || !(/^[A-Fa-f0-9]{32}$/.test(wallet) && /^[A-Fa-f0-9]{32}$/.test(secret) && (route.name !== 'wallet' || (hasChanged)))">
+                :disabled="(status !== 'normal') && (route.name !== 'wallet' || (hasChanged))">
                 <i :class="`${route.name === 'wallet' ? 'icon-save' : 'icon-plus-square'}`"></i>
                 <span>{{ route.name === 'wallet' ? $t('wallet.save_wallet') : $t('wallet.import_wallet') }}</span>
             </button>
@@ -232,9 +233,9 @@
         </div>
 
         <div v-if="route.name === 'wallet'" id="container-clear">
-            <button v-if="statusRevoke !== 'hide'"
+            <!-- <button v-if="statusRevoke !== 'hide'"
                 :class="['button', 'button-progress', 'normal', `button-progress-${statusRevoke}`]"
-                @click="RevokeSecret" :disabled="statusRevoke !== 'normal'"><i class="icon-repeat"></i><span>{{ $t('wallet.revoke_secret') }}</span></button>
+                @click="RevokeSecret" :disabled="statusRevoke !== 'normal'"><i class="icon-repeat"></i><span>{{ $t('wallet.revoke_secret') }}</span></button> -->
             <button class="button danger" @click="DeleteWallet"><i class="icon-trash"></i><span>{{
                 $t('wallet.clear_session') }}</span></button>
         </div>

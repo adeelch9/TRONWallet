@@ -1,12 +1,12 @@
 const i18n_ar = {
     general: {
-        title: 'محفظة DPX',
+        title: 'محفظة TRX',
         language: 'العربية',
         yes: 'نعم',
         no: 'لا',
     },
     login: {
-        title: "مرحبًا بك في محفظة DPX",
+        title: "مرحبًا بك في محفظة TRX",
         description: "للبدء، يجب عليك إنشاء محفظة جديدة أو استيراد محفظة موجودة إذا كانت لديك بالفعل.",
         buttons: {
             import: "استيراد المحفظة",
@@ -19,9 +19,9 @@ const i18n_ar = {
     settings: {
         language: {
             title: 'اللغة',
-            description: 'اختر لغتك المفضلة',
+            description: '',
         },
-        copyright: 'تطوير بواسطة عرفان مولا باستخدام TeleVue',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_ar = {
     receive: {
         set: 'تعيين',
         amount: 'المبلغ (اختياري)',
-        receive_amount: 'المبلغ المستلم (DPX)',
+        receive_amount: 'المبلغ المستلم (TRX)',
         hint: 'يمكنك نسخ ومشاركة عنوان محفظتك بالنقر فوق العنوان. يمكنك أيضًا مشاركة رمز الاستجابة السريعة الخاص بمحفظتك.',
         toast: {
             wallet_copied: 'تم نسخ عنوان المحفظة إلى الحافظة',
@@ -88,7 +88,7 @@ const i18n_ar = {
             departure: 'المحفظة المرسلة',
             destination: 'المحفظة المستلمة',
             amount: 'المبلغ',
-            transfer_amount: 'مبلغ التحويل (DPX)'
+            transfer_amount: 'مبلغ التحويل (TRX)'
         },
         request_transfer: 'طلب التحويل',
         toast: {
@@ -97,7 +97,7 @@ const i18n_ar = {
         prompt: {
             verify_transfer: {
                 title: 'تأكيد التحويل',
-                text: 'أنت على وشك نقل {amount} DPX برسوم قدرها {fee} DPX إلى {destination}. هل ترغب في المتابعة؟',
+                text: 'أنت على وشك نقل {amount} TRX برسوم قدرها {fee} TRX إلى {destination}. هل ترغب في المتابعة؟',
             },
         }
     },

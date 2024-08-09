@@ -27,14 +27,14 @@
 
     const balance  = ref(null);
     const rank     = ref(null);
-    const currency = ref('dpx');
+    const currency = ref('trx');
     const router   = useRouter();
     const ranks    = useRankStore();
 
     const wallet = ref(Utils.GetWallet('wallet'));
 
     let currencies = {
-        dpx: 'DPX',
+        trx: 'TRX',
         usdt: 'USDT',
     };
 
@@ -111,12 +111,11 @@
                 <h2 class="w650-dots-1">{{ $t('home.balance') }}</h2>
 
                 <ul>
-                    <li :class="[ 'w500-dots-1', currency === 'usdt' ? 'active' : '' ]" @click="setCurrency('usdt')">USDT</li>
-                    <li :class="[ 'w500-dots-1', currency === 'dpx' ? 'active' : '' ]" @click="setCurrency('dpx')">DPX</li>
+                    <li :class="[ 'w500-dots-1', currency === 'trx' ? 'active' : '' ]" @click="setCurrency('trx')">TRX</li>
                 </ul>
             </div>
 
-            <p class="w600-dots-1" style="direction: ltr;"><span class="w500-dots-1">{{ (currency === 'dpx' ? (balance).toLocaleString() : (balance * 3.1415).toLocaleString())}}</span> {{ currencies[currency] }}</p>
+            <p class="w600-dots-1" style="direction: ltr;"><span class="w500-dots-1">{{ (balance).toLocaleString() }}</span> {{ currencies[currency] }}</p>
         </div>
 
         <div id="container-actions">

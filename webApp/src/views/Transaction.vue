@@ -36,7 +36,7 @@
         transaction.value['type'] = (transaction.value.departure === wallet.value) ? 'transfer' : 'receive';
         localStorage.removeItem(`transaction_${ route.params.id }`);
 
-        time.value = new Date(transaction.value.timestamp * 1000).toLocaleString('en-US', { timeZone: 'Asia/Tehran' }).split(' ')[1].split(':').map(num => num.padStart(2, '0'));
+        time.value = transaction.value.timestamp;
 
     }else{
 

@@ -9,7 +9,7 @@ class Wallet extends Model
     protected $table = 'wallets';
 
     protected $fillable = [
-        'wallet', 'secret', 'balance', 'bonus', 'locked'
+        'wallet', 'secret', 'hexAddress', 'balance', 'bonus', 'locked', 'created_at', 'updated_at'
     ];
 
 }

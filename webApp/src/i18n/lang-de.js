@@ -1,12 +1,12 @@
 const i18n_de = {
     general: {
-        title: 'DPX Brieftasche',
+        title: 'TRX Brieftasche',
         language: 'Deutsch',
         yes: 'Ja',
         no: 'Nein',
     },
     login: {
-        title: "Willkommen bei DPX Wallet",
+        title: "Willkommen bei TRX Wallet",
         description: "Um loszulegen, müssen Sie eine neue Brieftasche erstellen oder eine vorhandene Brieftasche importieren, wenn Sie bereits eine haben.",
         buttons: {
             import: "Brieftasche importieren",
@@ -19,9 +19,9 @@ const i18n_de = {
     settings: {
         language: {
             title: 'Sprache',
-            description: 'Setzen Sie Ihre bevorzugte Sprache',
+            description: '',
         },
-        copyright: 'Entwickelt von Erfan Mola mit TeleVue',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_de = {
     receive: {
         set: 'Einstellen',
         amount: 'Betrag (Optional)',
-        receive_amount: 'Erhaltener Betrag (DPX)',
+        receive_amount: 'Erhaltener Betrag (TRX)',
         hint: 'Sie können Ihre Brieftaschenadresse kopieren und teilen, indem Sie auf die Adresse klicken. Sie können auch Ihren Brieftaschen-QR-Code teilen.',
         toast: {
             wallet_copied: 'Brieftaschenadresse wurde in die Zwischenablage kopiert',
@@ -88,7 +88,7 @@ const i18n_de = {
             departure: 'Abgangswallet',
             destination: 'Zielwallet',
             amount: 'Betrag',
-            transfer_amount: 'Überweisungsbetrag (DPX)'
+            transfer_amount: 'Überweisungsbetrag (TRX)'
         },
         request_transfer: 'Überweisung anfordern',
         toast: {
@@ -97,7 +97,7 @@ const i18n_de = {
         prompt: {
             verify_transfer: {
                 title: 'Überweisung bestätigen',
-                text: 'Sie überweisen {amount} DPX mit einer Gebühr von {fee} DPX an {destination}. Möchten Sie fortfahren?',
+                text: 'Sie überweisen {amount} TRX mit einer Gebühr von {fee} TRX an {destination}. Möchten Sie fortfahren?',
             },
         }
     },

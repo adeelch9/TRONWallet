@@ -10,12 +10,12 @@ class CreateTransactionsTable extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction', 32);
-            $table->string('departure', 32);
-            $table->string('destination', 32);
-            $table->float('amount');
-            $table->float('fee');
-            $table->integer('timestamp');
+            $table->string('transaction');
+            $table->string('departure');
+            $table->string('destination');
+            $table->double('amount');
+            $table->double('fee');
+            $table->string('timestamp');
             $table->timestamps();
         });
     }

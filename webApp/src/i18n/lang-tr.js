@@ -1,12 +1,12 @@
 const i18n_tr = {
     general: {
-        title: 'DPX Cüzdan',
+        title: 'TRX Cüzdan',
         language: 'Türkçe',
         yes: 'Evet',
         no: 'Hayır',
     },
     login: {
-        title: "DPX Cüzdan'a Hoş Geldiniz",
+        title: "TRX Cüzdan'a Hoş Geldiniz",
         description: "Başlamak için yeni bir cüzdan oluşturmanız veya zaten bir cüzdanınız varsa bunu içe aktarmanız gerekmektedir.",
         buttons: {
             import: "Cüzdanı İçe Aktar",
@@ -19,9 +19,9 @@ const i18n_tr = {
     settings: {
         language: {
             title: 'Dil',
-            description: 'Tercih ettiğiniz dili ayarlayın',
+            description: '',
         },
-        copyright: 'TeleVue kullanılarak geliştirilmiştir, Erfan Mola tarafından',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_tr = {
     receive: {
         set: 'Ayarla',
         amount: 'Miktar (İsteğe Bağlı)',
-        receive_amount: 'Alınan Miktar (DPX)',
+        receive_amount: 'Alınan Miktar (TRX)',
         hint: 'Adrese tıklayarak cüzdan adresinizi kopyalayabilir ve paylaşabilirsiniz. Ayrıca cüzdan QR kodunuzu da paylaşabilirsiniz.',
         toast: {
             wallet_copied: 'Cüzdan adresi panoya kopyalandı',
@@ -88,7 +88,7 @@ const i18n_tr = {
             departure: 'Gönderen Cüzdan',
             destination: 'Alıcı Cüzdan',
             amount: 'Miktar',
-            transfer_amount: 'Transfer Miktarı (DPX)'
+            transfer_amount: 'Transfer Miktarı (TRX)'
         },
         request_transfer: 'Transfer Talebi',
         toast: {
@@ -97,7 +97,7 @@ const i18n_tr = {
         prompt: {
             verify_transfer: {
                 title: 'Transferi Onayla',
-                text: '{amount} DPX ve {fee} DPX ücret ile {destination} adresine transfer yapmak üzeresiniz. Devam etmek istiyor musunuz?',
+                text: '{amount} TRX ve {fee} TRX ücret ile {destination} adresine transfer yapmak üzeresiniz. Devam etmek istiyor musunuz?',
             },
         }
     },

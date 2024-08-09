@@ -1,12 +1,12 @@
 const i18n_fa = {
     general: {
-        title: 'کیف پول DPX',
+        title: 'کیف پول TRX',
         language: 'فارسی',
         yes: 'بله',
         no: 'خیر',
     },
     login: {
-        title: 'به کیف پول DPX خوش آمدید',
+        title: 'به کیف پول TRX خوش آمدید',
         description: 'برای شروع لازم است که یک کیف پول جدید ایجاد کنید یا اگر از قبل کیف پول دارید، می‌توانید آن‌را وارد کنید',
         buttons: {
             import: 'وارد کردن کیف پول',
@@ -19,9 +19,9 @@ const i18n_fa = {
     settings: {
         language: {
             title: 'زبان',
-            description: 'زبان مورد نظر خود را تنظیم کنید',
+            description: '',
         },
-        copyright: 'توسعه یافته توسط عرفان مولا با استفاده از TeleVue',
+        copyright: '',
     },
     wallet: {
         title: {
@@ -76,7 +76,7 @@ const i18n_fa = {
     receive: {
         set: 'تنظیم',
         amount: 'مقدار (اختیاری)',
-        receive_amount: 'مقدار دریافتی (DPX)',
+        receive_amount: 'مقدار دریافتی (TRX)',
         hint: 'شما می‌توانید با کلیک روی آدرس، آن را کپی کرده و به اشتراک بگذارید. همچنین می‌توانید کد QR کیف پول خود را به اشتراک بگذارید.',
         toast: {
             wallet_copied: 'آدرس کیف پول به کلیپ‌بورد کپی شد',
@@ -88,7 +88,7 @@ const i18n_fa = {
             departure: 'کیف پول مبدا',
             destination: 'کیف پول مقصد',
             amount: 'مقدار',
-            transfer_amount: 'مقدار انتقالی (DPX)'
+            transfer_amount: 'مقدار انتقالی (TRX)'
         },
         request_transfer: 'درخواست انتقال',
         toast: {
@@ -97,7 +97,7 @@ const i18n_fa = {
         prompt: {
             verify_transfer: {
                 title: 'تأیید انتقال',
-                text: 'شما در حال انتقال {amount} DPX با کارمزد {fee} DPX به {destination} هستید. آیا می‌خواهید ادامه دهید؟',
+                text: 'شما در حال انتقال {amount} TRX با کارمزد {fee} TRX به {destination} هستید. آیا می‌خواهید ادامه دهید؟',
             },
         }
     },

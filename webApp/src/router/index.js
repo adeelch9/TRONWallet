@@ -47,7 +47,7 @@ const routes = [
         component: ReceiveView,
     },
     {
-        path: '/transfer/:destination([a-f0-9]{32})?/:amount?',
+        path: '/transfer/:destination?/:amount?',
         name: 'transfer',
         component: TransferView,
     },
