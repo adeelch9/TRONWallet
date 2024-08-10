@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class DPX extends Controller
 {
-    const URI = 'https://nile.trongrid.io';
+    const URI = 'https://api.trongrid.io';
     public static function GenerateTRXAddress()
     {
         try {
