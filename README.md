@@ -1,5 +1,3 @@
-![TRONWallet]
-
 # TRONWallet
 TRONWallet is a Feature-Rich demonstration of a TRON Wallet app built in Telegram.
 
