@@ -1,16 +1,16 @@
-![TRONWallet](https://raw.githubusercontent.com/erfanmola/DPXWallet/master/docs/DPXWallet.gif)
+![TRONWallet]
 
-# DPXWallet
-DPXWallet is a Feature-Rich demonstration of a dummy Wallet app built in Telegram. It's main purpose is for [Telegram Mini App Contest](https://t.me/contest/327)
+# TRONWallet
+TRONWallet is a Feature-Rich demonstration of a TRON Wallet app built in Telegram.
 
 ## Telegram WebApp
-You can access the DPXWallet WebApp in Telegram using [@DPXWalletBot](https://t.me/DPXWalletBot) or you can directly open [DPXWallet WebApp](https://t.me/DPXWalletBot/app).
+You can access the TRONWallet WebApp in Telegram using [@TRXCryptoWalletBot](https://t.me/TRXCryptoWalletBot) or you can directly open [TRONWallet WebApp](https://t.me/@TRXCryptoWalletBot).
 
 ## Documentation
-DPXWallet has a comprehensive [Documentation](https://erfanmola.github.io/DPXWallet/), addressing multiple aspects of the technical development. We recommend you to start from there.
+TRONWallet has a comprehensive [Documentation](https://erfanmola.github.io/DPXWallet/), addressing multiple aspects of the technical development. We recommend you to start from there.
 
 ### Introduction
-- [Introduction](https://erfanmola.github.io/DPXWallet/introduction.html)
+- [Introduction](https://erfanmola.github.io/TRONWallet/introduction.html)
 - [Getting Started](https://erfanmola.github.io/DPXWallet/getting-started.html)
 - [Technologies Used](https://erfanmola.github.io/DPXWallet/technologies-used.html)
 
