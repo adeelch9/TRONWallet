@@ -198,6 +198,4 @@ TRONWallet is a Feature-Rich demonstration of a TRX Wallet app built in Telegram
 
   ## License
 
-  This project is licensed under the MIT License.
-## License
-[MIT](https://github.com/adeelch9/TRONWallet/blob/master/LICENSE)
+  This project is licensed under the [MIT](https://github.com/adeelch9/TRONWallet/blob/master/LICENSE) License.
