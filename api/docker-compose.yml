@@ -1,9 +1,9 @@
 services:
 
 # App server
-  bttc-wallet:
-    image: bttc-wallet:latest
-    container_name: bttc-wallet
+  tron-wallet:
+    image: tron-wallet:latest
+    container_name: tron-wallet
     build: .
     volumes:
       - ./api:/var/www/html
