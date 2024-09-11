@@ -10,7 +10,7 @@
     @for $j from 1 to 6 {
 
         .w#{$i * 50}-dots-#{$j} {
-            font-weight: #{$i * 50};
+            font-weight: #{$i * 10};
             font-variation-settings: "wght" #{$i * 50}, "dots" #{$j};
         }
 

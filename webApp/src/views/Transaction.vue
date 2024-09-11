@@ -73,12 +73,12 @@
                 <h1 class="w550-dots-1">{{ $t('transaction.info') }}</h1>
 
                 <ul>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.id') }}:</span><span class="w550-dots-1">{{ transaction.transaction }}</span></li>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.departure') }}:</span><span class="w550-dots-1">{{ transaction.departure }}</span></li>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.destination') }}:</span><span class="w550-dots-1">{{ transaction.destination }}</span></li>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.amount') }}:</span><span class="w550-dots-1">{{ transaction.amount }}</span></li>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.fee') }}:</span><span class="w550-dots-1">{{ transaction.fee }}</span></li>
-                    <li><span class="w500-dots-1">{{ $t('transaction.fields.date') }}:</span><span class="w550-dots-1">{{ new Date(transaction.timestamp * 1000).toLocaleTimeString() }} {{ new Date(transaction.timestamp * 1000).toLocaleDateString() }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.id') }}:</span><span class="value">{{ transaction.transaction }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.departure') }}:</span><span class="value">{{ transaction.departure }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.destination') }}:</span><span class="value">{{ transaction.destination }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.amount') }}:</span><span class="value">{{ transaction.amount }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.fee') }}:</span><span class="value">{{ transaction.fee }}</span></li>
+                    <li><span class="label">{{ $t('transaction.fields.date') }}:</span><span class="value">{{ transaction.timestamp }}</span></li>
                 </ul>
             </section>
 
@@ -162,6 +162,31 @@
         > li {
             border-radius: 0.425rem;
             height: 24rem;
+        }
+    }
+
+    #section-transaction-info {
+        ul {
+            li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 0.5rem;
+
+                .label {
+                    font-size: 1rem;
+                    font-weight: 500;
+                    flex-shrink: 0;
+                }
+
+                .value {
+                    font-size: 0.925rem;
+                    white-space: nowrap;
+                    overflow: hidden;
+                    text-overflow: ellipsis;
+                    max-width: 60%;
+                }
+            }
         }
     }
 

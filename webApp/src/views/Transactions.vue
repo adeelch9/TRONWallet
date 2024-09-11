@@ -61,7 +61,7 @@
                 <li v-for="transaction in transactions" @click="OpenTransaction(transaction)" :class="transaction.departure === wallet ? 'transfer' : 'receive'">
                     <div>
                         <h2 class="w550-dots-1">{{ transaction.amount }} TRX {{ transaction.departure === wallet ? $t('transactions.sent') : $t('transactions.received') }}</h2>
-                        <span>{{ $t('transactions.transaction') }}: {{ transaction.transaction }}</span>
+                        <span style="font-size: 0.5rem;">{{ $t('transactions.transaction') }}: {{ transaction.transaction }}</span>
                     </div>
                     <i :class="transaction.departure === wallet ? 'icon-arrow-up-circle' : 'icon-arrow-down-circle'"></i>
                 </li>
