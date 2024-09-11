@@ -36,84 +36,102 @@ class DPX extends Controller
 
     public static function ValidateTRXAddress(string $address, string $privateKey, string $hexAddress)
     {
-        try {
-            $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
-            $trxWallet = new \Tron\TRX($api);
-            $tronAddress = new \Tron\Address($address, $privateKey, $hexAddress);
-            $addressData = $trxWallet->validateAddress(
-                $tronAddress
-            );
+        $wallet = Wallet::where('wallet', $address)->first();
 
-        } catch (\Exception $e) {
-            return ['addressData' => false];
+        if ($wallet) {
+
+            try {
+                $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
+                $trxWallet = new \Tron\TRX($api);
+                $tronAddress = new \Tron\Address($address, $privateKey, $hexAddress);
+                $addressData = $trxWallet->validateAddress(
+                    $tronAddress
+                );
+
+            } catch (\Exception $e) {
+                return ['addressData' => false];
+            }
+
+            if ($addressData) {
+                return ['addressData' => $addressData];
+            }
         }
 
-        return ['addressData' => $addressData];
+        return ['addressData' => false];
     }
 
 
     public static function CreateWallet(null|string $wallet = null)
     {
 
-    if (!($wallet)) {
-        $wallet = DPX::GenerateTRXAddress();
+        if (!$wallet) {
+            $wallet = DPX::GenerateTRXAddress();
+        }
+
+        // Access the 'addressData' object within the array
+        if (isset($wallet['addressData']) && is_object($wallet['addressData'])) {
+
+            $addressData = $wallet['addressData'];
+            // Access the properties directly
+            $address = $addressData->address;
+            $privateKey = $addressData->privateKey;
+
+            // Insert the wallet into the Wallet table
+            Wallet::insert([
+                'wallet' => $address,
+                'secret' => Hash::make($privateKey),
+                'hexAddress' => $addressData->hexAddress
+            ]);
+
+            // Return the address and private key
+            return [
+                'wallet' => $address,
+                'secret' => $privateKey,
+                'hexAddress' => $addressData->hexAddress
+            ];
+        } else {
+            // Handle the case where addressData is not set or not an object
+            throw new \Exception('Address data is missing or not an object.');
+        }
     }
-
-    // Access the 'addressData' object within the array
-    if (isset($wallet['addressData']) && is_object($wallet['addressData'])) {
-
-        $addressData = $wallet['addressData'];
-        // Access the properties directly
-        $address = $addressData->address;
-        $privateKey = $addressData->privateKey;
-
-        // Insert the wallet into the Wallet table
-        Wallet::insert([
-            'wallet' => $address,
-            'secret' => Hash::make($privateKey),
-            'hexAddress' => $addressData->hexAddress
-        ]);
-
-        // Return the address and private key
-        return [
-            'wallet' => $address,
-            'secret' => $privateKey,
-            'hexAddress' => $addressData->hexAddress
-        ];
-    } else {
-        // Handle the case where addressData is not set or not an object
-        throw new \Exception('Address data is missing or not an object.');
-    }
-}
 
 
     public static function Transfer(string $departure, string $destination, float $amount, string $secret, float $fee = null)
     {
-        try {
-            $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
-            $trxWallet = new \Tron\TRX($api);
+        $wallet = Wallet::where('wallet', $departure)->first();
 
-            $from = $trxWallet->privateKeyToAddress($secret);
-            $to = new Address(
-                $destination,
-                '',
-                $trxWallet->tron->address2HexString($destination)
-            );
-            $transferData = $trxWallet->transfer($from, $to, $amount);
+        if (!$wallet) {
 
-            $responseData = [
-                "transaction" => $transferData->txID,
-                "departure" => $departure,
-                "destination" => $destination,
-                "amount" => $amount,
-                "fee" => $fee ?? "0.2", // Set a default fee if not provided
-                "timestamp" => Carbon::createFromTimestampMs($transferData->raw_data['timestamp'])->toDateTimeString(), // Convert to seconds
-            ];
+            return API::Error('invalid-wallet', 'Wallet address does not exist on the Miniapp.');
 
-            Transaction::insert($responseData);
+        } else {
 
-        } catch (\Exception $e) {
-            return API::Error('error', $e->getMessage());
+            try {
+                $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
+                $trxWallet = new \Tron\TRX($api);
+
+                $from = $trxWallet->privateKeyToAddress($secret);
+                $to = new Address(
+                    $destination,
+                    '',
+                    $trxWallet->tron->address2HexString($destination)
+                );
+                $transferData = $trxWallet->transfer($from, $to, $amount);
+
+                $responseData = [
+                    "transaction" => $transferData->txID,
+                    "departure" => $departure,
+                    "destination" => $destination,
+                    "amount" => $amount,
+                    "fee" => $fee ?? "0.2", // Set a default fee if not provided
+                    "timestamp" => Carbon::createFromTimestampMs($transferData->raw_data['timestamp'])->toDateTimeString(), // Convert to seconds
+                ];
+
+                Transaction::insert($responseData);
+
+            } catch (\Exception $e) {
+                return API::Error('error', $e->getMessage());
+            }
         }
 
         return API::Respond($responseData ?? []);
@@ -135,18 +153,24 @@ class DPX extends Controller
 
     public static function GetBalance(string $wallet)
     {
-        $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
-        $trxWallet = new \Tron\TRX($api);
+        $walletAddress = Wallet::where('wallet', $wallet)->first();
 
-        $address = new Address(
-            $wallet,
-            '',
-            $trxWallet->tron->address2HexString($wallet)
-        );
+        if (!$walletAddress) {
+            return API::Error('invalid-wallet', 'Address does not exist on MiniApp.');
+        } else {
+            $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
+            $trxWallet = new \Tron\TRX($api);
 
-        $balanceData = $trxWallet->balance($address);
+            $address = new Address(
+                $wallet,
+                '',
+                $trxWallet->tron->address2HexString($wallet)
+            );
 
-        return $balanceData ? API::Respond($balanceData) : API::Error('invalid-wallet', 'Wallet is invalid');
+            $balanceData = $trxWallet->balance($address);
+
+            return API::Respond($balanceData);
+        }
     }
 
     public static function GetTransaction(string $transaction)
@@ -202,7 +226,7 @@ class DPX extends Controller
 
         $transactions = json_decode(json_encode($transactions), true);
 
-        return API::Respond($transactions, json_encode: false);
+        return API::Respond($transactions, 'success');
     }
 
 }

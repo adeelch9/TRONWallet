@@ -1,0 +1,11 @@
+services:
+
+# App server
+  bttc-wallet:
+    image: bttc-wallet:latest
+    container_name: bttc-wallet
+    build: .
+    volumes:
+      - ./api:/var/www/html
+    ports:
+      - "8080:80"
