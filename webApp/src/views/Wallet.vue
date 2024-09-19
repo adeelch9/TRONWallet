@@ -75,7 +75,7 @@
             status.value = 'success';
             Utils.PlayAudio('Success.mp3');
 
-            Utils.SetWallet(wallet.value.toString().toLowerCase(), secret.value.toString().toLowerCase());
+            Utils.SetWallet(wallet.value.toString(), secret.value.toString());
 
             if (route.name === 'wallet') {
 
@@ -158,7 +158,7 @@
 
     //                     secret.value = result.result;
 
-    //                     Utils.SetWallet(wallet.value.toString().toLowerCase(), secret.value.toString().toLowerCase());
+    //                     Utils.SetWallet(wallet.value.toString().toLowerCase(), secret.value.toString());
 
     //                     setTimeout(() => { hasChanged.value = false });
 

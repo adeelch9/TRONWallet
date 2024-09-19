@@ -34,7 +34,7 @@
 
                 Utils.PlayAudio('Success.mp3');
 
-                Utils.SetWallet(result.result.wallet.toString().toLowerCase(), result.result.secret.toString().toLowerCase());
+                Utils.SetWallet(result.result.wallet.toString(), result.result.secret.toString());
 
                 Utils.Toast(i18nLocale.t('login.toast.wallet_created'));
 
