@@ -1,5 +1,5 @@
 <script setup>
-    import { inject, ref } from 'vue';
+    import { inject, ref, computed } from 'vue';
     import { useI18n } from "vue-i18n";
     import { useRouter, useRoute } from 'vue-router';
 
@@ -31,15 +31,15 @@
     const secret = ref(Utils.GetWallet('secret'));
 
     const destination = ref(route.params.destination);
-    const amount = ref(parseFloat(route.params.amount));
+    const amount = ref(0);
 
     const ScanQRCode = () => {
 
         Utils.ScanQRCode(i18nLocale.t('wallet.scan_wallet'), (data) => {
 
-            if (/^[A-Fa-f0-9]{32}$/.test(data.data) || /^[A-Fa-f0-9]{32}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
+            if (/^[A-Za-z0-9]{34}$/.test(data.data) || /^[A-Za-z0-9]{34}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
 
-                if (/^[A-Fa-f0-9]{32}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
+                if (/^[A-Za-z0-9]{34}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
 
                     destination.value = data.data.toString().split('/')[0];
                     amount.value = data.data.toString().split('/')[1];
@@ -114,6 +114,20 @@
 
     WebApp.BackButton.onClick(() => { router.push('/'); });
     WebApp.BackButton.show();
+
+    const isValidDestination = computed(() => {
+        return /^T[a-zA-Z0-9]{33}$/.test(destination.value);
+    });
+
+    const isValidAmount = computed(() => {
+        const parsedAmount = parseFloat(amount.value);
+        return parsedAmount > 0 && !isNaN(parsedAmount);
+    });
+
+    const isValidTransfer = computed(() => {
+        return isValidDestination.value && isValidAmount.value;
+    });
+
 </script>
 
 <template>
@@ -126,7 +140,7 @@
             <div class="form-item">
                 <label>{{ $t('transfer.fields.departure') }}</label>
                 <div>
-                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.departure')" minlength="32" maxlength="32" v-model="wallet"
+                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.departure')" v-model="wallet"
                         @keydown="Utils.hideKeyboardOnEnter" disabled />
                 </div>
             </div>
@@ -134,7 +148,7 @@
             <div class="form-item">
                 <label>{{ $t('transfer.fields.destination') }}</label>
                 <div>
-                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.destination')" minlength="32" maxlength="32" v-model="destination"
+                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.destination')" v-model="destination"
                         @keydown="Utils.hideKeyboardOnEnter" />
                     <i @click="ScanQRCode('destination')" class="icon-maximize"></i>
                 </div>
@@ -143,15 +157,20 @@
             <div class="form-item">
                 <label>{{ $t('transfer.fields.amount') }}</label>
                 <div>
-                    <input type="number" enterkeyhint="done" :placeholder="$t('transfer.fields.transfer_amount')" min="0" max="99999999" minlength="0" maxlength="8"
+                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.transfer_amount')"
                         v-model="amount" @keydown="Utils.hideKeyboardOnEnter" />
                 </div>
             </div>
 
             <div id="container-button">
-                <button :class="['button', 'button-progress', 'normal', `button-progress-${status}`]" @click="Submit"
-                    :disabled="(status !== 'normal') || !(/^[A-Fa-f0-9]{32}$/.test(wallet) && /^[A-Fa-f0-9]{32}$/.test(destination) && parseFloat(amount) > 0)"><i
-                        class="icon-upload"></i><span>{{ $t('transfer.request_transfer') }}</span></button>
+                <button 
+                    :class="['button', 'button-progress', 'normal', `button-progress-${status}`]" 
+                    @click="Submit"
+                    :disabled="!isValidTransfer"
+                >
+                    <i class="icon-upload"></i>
+                    <span>{{ $t('transfer.request_transfer') }}</span>
+                </button>
             </div>
 
         </div>
