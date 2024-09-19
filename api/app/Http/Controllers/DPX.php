@@ -12,7 +12,7 @@ use Carbon\Carbon;
 
 class DPX extends Controller
 {
-    const URI = 'https://api.shasta.trongrid.io';
+    const URI = 'https://api.trongrid.io';
     public static function GenerateTRXAddress()
     {
         try {
@@ -122,7 +122,7 @@ class DPX extends Controller
                     "transaction" => $transferData->txID,
                     "departure" => $departure,
                     "destination" => $destination,
-                    "amount" => (string) $amount,
+                    "amount" => $amount,
                     "fee" => $fee ?? "0.2", // Set a default fee if not provided
                     "timestamp" => Carbon::createFromTimestampMs($transferData->raw_data['timestamp'])->toDateTimeString(), // Convert to seconds
                 ];
@@ -169,10 +169,7 @@ class DPX extends Controller
 
             $balanceData = $trxWallet->balance($address);
 
-            // Convert balance to string
-            $balanceString = (string) $balanceData;
-
-            return API::Respond($balanceString);
+            return API::Respond($balanceData);
         }
     }
 
