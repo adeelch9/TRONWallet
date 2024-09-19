@@ -36,26 +36,16 @@
     const ScanQRCode = () => {
 
         Utils.ScanQRCode(i18nLocale.t('wallet.scan_wallet'), (data) => {
-
-            if (/^[A-Za-z0-9]{34}$/.test(data.data) || /^[A-Za-z0-9]{34}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
-
-                if (/^[A-Za-z0-9]{34}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
-
+            if (/^[Tt][A-Za-z0-9]{33}$/.test(data.data) || /^[Tt][A-Za-z0-9]{33}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
+                if (/^[Tt][A-Za-z0-9]{33}\/(([0-9]*[.]?)[0-9]?)$/.test(data.data)) {
                     destination.value = data.data.toString().split('/')[0];
                     amount.value = data.data.toString().split('/')[1];
-
                 } else {
-
                     destination.value = data.data;
-
                 }
-
                 return true;
-
             }
-
             return false;
-
         });
 
     };
@@ -116,7 +106,7 @@
     WebApp.BackButton.show();
 
     const isValidDestination = computed(() => {
-        return /^T[a-zA-Z0-9]{33}$/.test(destination.value);
+        return /^[Tt][A-Za-z0-9]{33}$/.test(destination.value);
     });
 
     const isValidAmount = computed(() => {
