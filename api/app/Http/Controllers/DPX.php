@@ -158,7 +158,7 @@ class DPX extends Controller
         if (!$walletAddress) {
             return API::Error('invalid-wallet', 'Address does not exist on MiniApp.');
         } else {
-            $api = new \Tron\Api(new Client(['base_uri' => self::URI]));
+            $api = new \Tron\Api(new Client(['base_uri' => self::URI, 'timeout' => 100000]));
             $trxWallet = new \Tron\TRX($api);
 
             $address = new Address(
