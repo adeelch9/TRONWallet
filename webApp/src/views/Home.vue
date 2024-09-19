@@ -25,7 +25,7 @@
     // Set i18n locale based on the user's locale provided by <LocaleProvider>
     i18nLocale.locale.value = localStorage.getItem('dpxwallet_locale') || inject('locale', 'en');
 
-    const balance  = ref(0);
+    const balance  = ref(null);
     const rank     = ref(null);
     const currency = ref('trx');
     const router   = useRouter();
@@ -80,7 +80,7 @@
 </script>
 
 <template>
-    <section id="section-home">
+    <section id="section-home" v-if="balance">
 
         <Header>
             <template #menu>
@@ -126,7 +126,7 @@
 
     </section>
 
-    <!-- <ul v-else id="shimmer-home">
+    <ul v-else id="shimmer-home">
         <li class="shimmer"><i class="icon-shield"></i></li>
         <li class="shimmer"></li>
         <li class="shimmer"></li>
@@ -143,7 +143,7 @@
                 <li class="shimmer"></li>
             </ul>
         </li>
-    </ul> -->
+    </ul>
 </template>
 
 <style lang="scss">
