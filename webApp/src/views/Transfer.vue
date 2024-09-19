@@ -1,5 +1,5 @@
 <script setup>
-    import { inject, ref, computed } from 'vue';
+    import { inject, ref } from 'vue';
     import { useI18n } from "vue-i18n";
     import { useRouter, useRoute } from 'vue-router';
 
@@ -31,7 +31,7 @@
     const secret = ref(Utils.GetWallet('secret'));
 
     const destination = ref(route.params.destination);
-    const amount = ref(0);
+    const amount = ref(parseFloat(route.params.amount));
 
     const ScanQRCode = () => {
 
@@ -114,20 +114,6 @@
 
     WebApp.BackButton.onClick(() => { router.push('/'); });
     WebApp.BackButton.show();
-
-    const isValidDestination = computed(() => {
-        return /^[a-zA-Z0-9]{34}$/.test(destination.value);
-    });
-
-    const isValidAmount = computed(() => {
-        const parsedAmount = parseFloat(amount.value);
-        return parsedAmount > 0 && !isNaN(parsedAmount);
-    });
-
-    const isValidTransfer = computed(() => {
-        return isValidDestination.value && isValidAmount.value;
-    });
-
 </script>
 
 <template>
@@ -157,20 +143,15 @@
             <div class="form-item">
                 <label>{{ $t('transfer.fields.amount') }}</label>
                 <div>
-                    <input type="text" enterkeyhint="done" :placeholder="$t('transfer.fields.transfer_amount')"
+                    <input type="number" enterkeyhint="done" :placeholder="$t('transfer.fields.transfer_amount')" min="0" max="99999999" minlength="0" maxlength="8"
                         v-model="amount" @keydown="Utils.hideKeyboardOnEnter" />
                 </div>
             </div>
 
             <div id="container-button">
-                <button 
-                    :class="['button', 'button-progress', 'normal', `button-progress-${status}`]" 
-                    @click="Submit"
-                    :disabled="!isValidTransfer"
-                >
-                    <i class="icon-upload"></i>
-                    <span>{{ $t('transfer.request_transfer') }}</span>
-                </button>
+                <button :class="['button', 'button-progress', 'normal', `button-progress-${status}`]" @click="Submit"
+                    ><i
+                        class="icon-upload"></i><span>{{ $t('transfer.request_transfer') }}</span></button>
             </div>
 
         </div>
