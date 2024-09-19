@@ -210,7 +210,7 @@
             <div class="form-item">
                 <label>{{ $t('wallet.fields.secret') }}</label>
                 <div>
-                    <input :type="passwordFieldType" :placeholder="$t('wallet.fields.secret')"
+                    <input :type="passwordFieldType" :placeholder="$t('wallet.fields.secret')" style="font-size: 1rem;"
                         v-model="secret" @keydown="Utils.hideKeyboardOnEnter" />
                     <i @click="ScanQRCode('secret')" class="icon-maximize"></i>
                     <i :class="(passwordFieldType === 'password' ? 'icon-eye' : 'icon-eye-off')"
