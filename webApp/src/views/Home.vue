@@ -27,14 +27,14 @@
 
     const balance  = ref(null);
     const rank     = ref(null);
-    const currency = ref('trx');
+    const currency = ref('TRX');
     const router   = useRouter();
     const ranks    = useRankStore();
 
     const wallet = ref(Utils.GetWallet('wallet'));
 
     let currencies = {
-        trx: 'TRX',
+        TRX: 'TRX',
         usdt: 'USDT',
     };
 
@@ -112,7 +112,7 @@
                 <h2 class="w650-dots-1">{{ $t('home.balance') }}</h2>
 
                 <ul>
-                    <li :class="[ 'w500-dots-1', currency === 'BTT' ? 'active' : '' ]" @click="setCurrency('BTT')">BTT</li>
+                    <li :class="[ 'w500-dots-1', currency === 'TRX' ? 'active' : '' ]" @click="setCurrency('TRX')">TRX</li>
                 </ul>
             </div>
 
