@@ -163,10 +163,12 @@ class DPX extends Controller
                 $trxWallet->tron->address2HexString($wallet)
             );
 
-            $balanceData = $trxWallet->balance($address);
+            $balanceData = (string) $trxWallet->balance($address);
+
+
 
             return API::Respond($balanceData);
-        
+
     }
 
     public static function GetTransaction(string $transaction)
