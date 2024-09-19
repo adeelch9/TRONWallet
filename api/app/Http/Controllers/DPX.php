@@ -98,6 +98,31 @@ class DPX extends Controller
 
     public static function Transfer(string $departure, string $destination, float $amount, string $secret, float $fee = null)
     {
+        // Validate departure address
+        if (!preg_match('/^[Tt][A-Za-z0-9]{33}$/', $departure)) {
+            return API::Error('invalid-departure', 'Invalid departure address format.');
+        }
+
+        // Validate destination address
+        if (!preg_match('/^[Tt][A-Za-z0-9]{33}$/', $destination)) {
+            return API::Error('invalid-destination', 'Invalid destination address format.');
+        }
+
+        // Validate amount
+        if (!is_numeric($amount) || $amount <= 0) {
+            return API::Error('invalid-amount', 'Amount must be a positive number.');
+        }
+
+        // Validate secret (private key)
+        if (!preg_match('/^0x[a-fA-F0-9]{64}$/', $secret)) {
+            return API::Error('invalid-secret', 'Invalid secret (private key) format.');
+        }
+
+        // Validate fee (if provided)
+        if ($fee !== null && (!is_numeric($fee) || $fee < 0)) {
+            return API::Error('invalid-fee', 'Fee must be a non-negative number.');
+        }
+
         $wallet = Wallet::where('wallet', $departure)->first();
 
         if (!$wallet) {
@@ -117,13 +142,12 @@ class DPX extends Controller
                     $trxWallet->tron->address2HexString($destination)
                 );
                 $transferData = $trxWallet->transfer($from, $to, $amount);
-
                 $responseData = [
                     "transaction" => $transferData->txID,
                     "departure" => $departure,
                     "destination" => $destination,
                     "amount" => $amount,
-                    "fee" => $fee ?? "0.2", // Set a default fee if not provided
+                    "fee" => $fee ?? "0.0", // Set a default fee if not provided
                     "timestamp" => Carbon::createFromTimestampMs($transferData->raw_data['timestamp'])->toDateTimeString(), // Convert to seconds
                 ];
 
