@@ -45,6 +45,7 @@
 
     };
 
+
     const showBadges = (delay = 1000) => {
 
         WebApp.HapticFeedback.impactOccurred('light');
@@ -111,7 +112,7 @@
                 <h2 class="w650-dots-1">{{ $t('home.balance') }}</h2>
 
                 <ul>
-                    <li :class="[ 'w500-dots-1', currency === 'trx' ? 'active' : '' ]" @click="setCurrency('trx')">TRX</li>
+                    <li :class="[ 'w500-dots-1', currency === 'BTT' ? 'active' : '' ]" @click="setCurrency('BTT')">BTT</li>
                 </ul>
             </div>
 

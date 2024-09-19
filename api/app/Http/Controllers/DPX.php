@@ -153,11 +153,7 @@ class DPX extends Controller
 
     public static function GetBalance(string $wallet)
     {
-        $walletAddress = Wallet::where('wallet', $wallet)->first();
 
-        if (!$walletAddress) {
-            return API::Error('invalid-wallet', 'Address does not exist on MiniApp.');
-        } else {
             $api = new \Tron\Api(new Client(['base_uri' => self::URI, 'timeout' => 100000]));
             $trxWallet = new \Tron\TRX($api);
 
@@ -170,7 +166,7 @@ class DPX extends Controller
             $balanceData = $trxWallet->balance($address);
 
             return API::Respond($balanceData);
-        }
+        
     }
 
     public static function GetTransaction(string $transaction)
